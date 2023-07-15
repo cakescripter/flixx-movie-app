@@ -101,23 +101,21 @@ async function displayMovieDetails() {
             <p>${movie.overview}</p>
             <h5>Genres</h5>
             <ul class="list-group">
-              <li>Genre 1</li>
-              <li>Genre 2</li>
-              <li>Genre 3</li>
+              ${movie.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
             </ul>
-            <a href="#" target="_blank" class="btn">Visit Movie Homepage</a>
+            <a href="${movie.homepage}" target="_blank" class="btn">Visit Movie Homepage</a>
           </div>
         </div>
         <div class="details-bottom">
           <h2>Movie Info</h2>
           <ul>
-            <li><span class="text-secondary">Budget:</span> $1,000,000</li>
-            <li><span class="text-secondary">Revenue:</span> $2,000,000</li>
-            <li><span class="text-secondary">Runtime:</span> 90 minutes</li>
-            <li><span class="text-secondary">Status:</span> Released</li>
+            <li><span class="text-secondary">Budget:</span> $${addComas(movie.budget)}</li>
+            <li><span class="text-secondary">Revenue:</span> $${addComas(movie.revenue)}</li>
+            <li><span class="text-secondary">Runtime:</span> ${movie.runtime} minutes</li>
+            <li><span class="text-secondary">Status:</span> ${movie.status}</li>
           </ul>
           <h4>Production Companies</h4>
-          <div class="list-group">Company 1, Company 2, Company 3</div>
+          <div class="list-group">${movie.production_companies.map((company) => `<span>${company.name}</span>`).join(', ')}</div>
         </div>
       `;
   document.querySelector('#movie-details').appendChild(div);
@@ -160,6 +158,10 @@ function highlightActiveLink() {
       link.classList.add('active');
     }
   });
+}
+
+function addComas(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 // Init App
