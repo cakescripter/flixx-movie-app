@@ -207,7 +207,7 @@ function displayBackgroundImage(type, backgroundPath) {
 
 // Display Slider Movies
 async function displayMovieSlider() {
-  const { results } = await fetchAPIData('movie/now_playing');
+  const { results } = await fetchAPIData('trending/movie/day');
   results.forEach((movie) => {
     const div = document.createElement('div');
     div.classList.add('swiper-slide');
@@ -235,7 +235,7 @@ async function displayShowSlider() {
 
     div.innerHTML = `
     <a href="tv-details.html?id=${show.id}">
-      <img src="https://image.tmdb.org/t/p/w300${show.poster_path}" alt="${show.name}" />
+      <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" alt="${show.name}" />
     </a>
     <h4 class="swiper-rating">
       <i class="fas fa-star text-secondary"></i> ${show.vote_average.toFixed(1)} / 10
@@ -249,13 +249,13 @@ async function displayShowSlider() {
 
 function initSwiper() {
   const swiper = new Swiper('.swiper', {
-    slidesPerView: 1,
+    slidesPerView: 2,
     spaceBetween: 30,
     freeMode: true,
     loop: true,
     autoplay: {
       delay: 4000,
-      disableOnInteraction: false
+      disableOnInteraction: true
     },
     breakpoints: {
       500: {
@@ -265,7 +265,7 @@ function initSwiper() {
         slidesPerView: 3
       },
       1200: {
-        slidesPerView: 4
+        slidesPerView: 4,
       }
     }
   })
