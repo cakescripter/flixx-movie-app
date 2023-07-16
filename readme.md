@@ -28,11 +28,11 @@ Check it out live: [Movie and TV Show App](https://keen-chaja-414c1b.netlify.app
 
 ![Screen projektu](images/preview.png)
 
-#### CSS Spinner
+### CSS Spinner
 
 The app features an appealing CSS spinner for loading and data retrieval. The spinner CSS was adapted from the code provided by [tbrownvisuals on CodePen](https://codepen.io/tbrownvisuals/pen/edGYvx), adding a delightful touch to the user experience.
 
-#### Swiper Library
+### Swiper Library
 
 To enhance the visual appeal and interactivity, the app leverages the [Swiper library](https://swiperjs.com), allowing users to smoothly slide through trending movies and TV shows.
 
