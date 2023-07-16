@@ -26,7 +26,8 @@ This repository contains a captivating and user-friendly movie and TV show appli
 
 Check it out live: [Movie and TV Show App](https://keen-chaja-414c1b.netlify.app)
 
-![Screen projektu](images/preview.png)
+![Screen projektu](images/preview3.png)
+![Screen projektu](images/preview4.png)
 
 ### CSS Spinner
 
