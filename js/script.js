@@ -1,72 +1,49 @@
 const global = {
   currentPage: window.location.pathname,
+  search: {
+    term: '',
+    type: '',
+    page: 1,
+    totalPages: 1
+  },
+  api: {
+    apiKey: '13d8c9a45382a1c96f94ff665d60c60b',
+    apiUrl: 'https://api.themoviedb.org/3/'
+  }
 };
 
-// Display 20 most popular movies
-async function displayPopularMovies() {
-  const { results } = await fetchAPIData('movie/popular');
+// Display 20 most popular movies or TV shows
+async function displayPopularItems(endpoint, containerId, altTextProperty) {
+  const { results } = await fetchAPIData(endpoint);
 
-  results.forEach((movie) => {
+  results.forEach((item) => {
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-          <a href="movie-details.html?id=${movie.id}">
-            ${movie.poster_path
+      <a href="${endpoint.includes('movie') ? 'movie' : 'tv'}-details.html?id=${item.id}">
+        ${item.poster_path
         ? `<img
-              src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
+              src="https://image.tmdb.org/t/p/w500/${item.poster_path}"
               class="card-img-top"
-              alt="${movie.title}"
+              alt="${item[altTextProperty]}"
             />`
         : `<img
-            src="../images/no-image.jpg"
-            class="card-img-top"
-            alt="${movie.title}"
-          />`
-      }
-          </a>
-          <div class="card-body">
-            <h5 class="card-title">${movie.title}</h5>
-            <p class="card-text">
-              <small class="text-muted">Release: ${movie.release_date}</small>
-            </p>
-          </div>
-        `;
-
-    document.querySelector('#popular-movies').appendChild(div);
-  });
-}
-
-// Display 20 most popular tv shows
-async function displayPopularShows() {
-  const { results } = await fetchAPIData('tv/popular');
-
-  results.forEach((show) => {
-    const div = document.createElement('div');
-    div.classList.add('card');
-    div.innerHTML = `
-          <a href="tv-details.html?id=${show.id}">
-            ${show.poster_path
-        ? `<img
-              src="https://image.tmdb.org/t/p/w500${show.poster_path}"
+              src="../images/no-image.jpg"
               class="card-img-top"
-              alt="${show.name}"
+              alt="${item[altTextProperty]}"
             />`
-        : `<img
-            src="../images/no-image.jpg"
-            class="card-img-top"
-            alt="${show.name}"
-          />`
       }
-          </a>
-          <div class="card-body">
-            <h5 class="card-title">${show.name}</h5>
-            <p class="card-text">
-              <small class="text-muted">Air Date: ${show.first_air_date}</small>
-            </p>
-          </div>
-        `;
+      </a>
+      <div class="card-body">
+        <h5 class="card-title">${item[altTextProperty]}</h5>
+        <p class="card-text">
+          <small class="text-muted">${endpoint.includes('movie') ? 'Release' : 'Air'} Date: ${item[endpoint.includes('movie') ? 'release_date' : 'first_air_date']
+      }</small>
+        </p>
+      </div>
+    `;
 
-    document.querySelector('#popular-shows').appendChild(div);
+    document.querySelector(containerId).appendChild(div);
   });
 }
 
@@ -84,7 +61,7 @@ async function displayDetails(type) {
       <div>
         ${item.poster_path
       ? `<img
-              src="https://image.tmdb.org/t/p/w500${item.poster_path}"
+              src="https://image.tmdb.org/t/p/w500/${item.poster_path}"
               class="card-img-top"
               alt="${item.title || item.name}"
             />`
@@ -156,6 +133,59 @@ function displayBackgroundImage(type, backgroundPath) {
 }
 
 // Search Movie or Show
+async function search() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  global.search.type = urlParams.get('type');
+  global.search.term = urlParams.get('search-term');
+
+  if (global.search.term !== '' && global.search.term !== null) {
+    const { results, total_pages, page } = await searchAPIData();
+
+    if (results.length === 0) {
+      showAlert('No results found');
+      return;
+    }
+
+    displaySearchResults(results);
+    document.querySelector('#search-term').value = '';
+
+  } else {
+    showAlert('Please enter a search term');
+  }
+}
+
+function displaySearchResults(results) {
+  results.forEach((item) => {
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.innerHTML = `
+      <a href="${global.search.type}-details.html?id=${item.id}">
+        ${item.poster_path
+        ? `<img
+              src="https://image.tmdb.org/t/p/w500${item.poster_path}"
+              class="card-img-top"
+              alt="${global.search.type === 'movie' ? item.title : item.name}"
+            />`
+        : `<img
+              src="../images/no-image.jpg"
+              class="card-img-top"
+              alt="${global.search.type === 'movie' ? item.title : item.name}"
+            />`
+      }
+      </a>
+      <div class="card-body">
+        <h5 class="card-title">${global.search.type === 'movie' ? item.title : item.name}</h5>
+        <p class="card-text">
+          <small class="text-muted">${global.search.type === 'movie' ? 'Release' : 'First Air'} Date: ${global.search.type === 'movie' ? item.release_date : item.first_air_date}
+      }</small>
+        </p>
+      </div>
+    `;
+
+    document.querySelector('#search-results').appendChild(div);
+  });
+}
 
 
 // Display Slider
@@ -168,7 +198,7 @@ async function displaySlider(endpoint, detailsPage, altTextProperty) {
 
     div.innerHTML = `
     <a href="${detailsPage}?id=${item.id}">
-      <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item[altTextProperty]}" />
+      <img src="https://image.tmdb.org/t/p/w500/${item.poster_path}" alt="${item[altTextProperty]}" />
     </a>
     <h4 class="swiper-rating">
       <i class="fas fa-star text-secondary"></i> ${item.vote_average.toFixed(1)} / 10
@@ -206,21 +236,31 @@ function initSwiper() {
 
 // Fetch data from TMDB API
 async function fetchAPIData(endpoint) {
-  // Register your key at https://www.themoviedb.org/settings/api and enter here
-  // Only use this for development or very small projects. You should store your key and make requests from a server
-  const API_KEY = '13d8c9a45382a1c96f94ff665d60c60b';
-  const API_URL = 'https://api.themoviedb.org/3/';
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiUrl;
 
   showSpinner();
-
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
   );
 
   const data = await response.json();
-
   hideSpinner();
+  return data;
+}
 
+// Make Request to Search
+async function searchAPIData() {
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiUrl;
+
+  showSpinner();
+  const response = await fetch(
+    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
+  );
+
+  const data = await response.json();
+  hideSpinner();
   return data;
 }
 
@@ -242,6 +282,16 @@ function highlightActiveLink() {
   });
 }
 
+// Show Alert
+function showAlert(message, className = 'alert-error') {
+  const alertEl = document.createElement('div');
+  alertEl.classList.add('alert', className);
+  alertEl.appendChild(document.createTextNode(message));
+  document.querySelector('#alert').appendChild(alertEl);
+
+  setTimeout(() => alertEl.remove(), 3000);
+}
+
 function addComas(number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
@@ -251,11 +301,11 @@ function init() {
   switch (global.currentPage) {
     case '/':
     case '/index.html':
-      displayPopularMovies();
+      displayPopularItems('movie/popular', '#popular-movies', 'title');
       displaySlider('trending/movie/day', 'movie-details.html', 'title');
       break;
     case '/shows.html':
-      displayPopularShows();
+      displayPopularItems('tv/popular', '#popular-shows', 'name');
       displaySlider('trending/tv/week', 'tv-details.html', 'name');
       break;
     case '/movie-details.html':
