@@ -13,6 +13,8 @@
 
 This repository contains a captivating and user-friendly movie and TV show application, built using HTML, CSS, and Vanilla JavaScript. The app offers an immersive experience for users to explore and discover the latest popular movies and TV shows, search for specific titles, and gain in-depth insights into each movie or show.
 
+Project showcases practical implementation of API integration, utilizing the fetch function to access real-time data from The Movie Database (TMDB) API. It demonstrates event listeners, DOM manipulation, and various utility functions for dynamic content rendering and seamless user interactions.
+
 ### Key Features
 
 - **Discover Popular Content:** The app presents the 20 most popular movies or TV shows, allowing users to stay up-to-date with trending entertainment.
