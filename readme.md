@@ -28,8 +28,7 @@ Project showcases practical implementation of API integration, utilizing the fet
 
 Check it out live: [Movie and TV Show App](https://keen-chaja-414c1b.netlify.app)
 
-![Screen projektu](images/preview3.png)
-![Screen projektu](images/preview4.png)
+![Screen projektu](images/preview2.png)
 
 ### CSS Spinner
 
