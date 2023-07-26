@@ -1,20 +1,15 @@
 ## Movie and TV Show App
 
-### Table of Contents
-
-- [Description](#description)
-- [Key Features](#key-features)
-- [Demo](#demo)
-- [CSS Spinner](#css-spinner)
-- [Swiper Library](#swiper-library)
-- [Credits](#credits)
-
 ### Description
 
 This repository contains a captivating and user-friendly movie and TV show application, built using HTML, CSS, and Vanilla JavaScript. The app offers an immersive experience for users to explore and discover the latest popular movies and TV shows, search for specific titles, and gain in-depth insights into each movie or show.
 
-Project showcases practical implementation of API integration, utilizing the fetch function to access real-time data from The Movie Database (TMDB) API. It demonstrates event listeners, DOM manipulation, and various utility functions for dynamic content rendering and seamless user interactions.
+Project showcases practical implementation of API integration, utilizing the fetch function to access real-time data from The Movie Database (TMDB) API. It demonstrates event listeners, DOM manipulation, and various utility functions for dynamic content rendering and seamless user interactions. Project was created as part of JavaScript course by Brad Traversy.
+### Demo
 
+Check it out live: [Movie and TV Show App](https://keen-chaja-414c1b.netlify.app)
+
+![Screen projektu](images/preview2.png)
 ### Key Features
 
 - **Discover Popular Content:** The app presents the 20 most popular movies or TV shows, allowing users to stay up-to-date with trending entertainment.
@@ -24,20 +19,6 @@ Project showcases practical implementation of API integration, utilizing the fet
 - **Seamless API Integration:** Utilizing the power of The Movie Database (TMDB) API, the app fetches real-time data, ensuring that users access the most accurate and updated information.
 - **User-Friendly Design:** The intuitive interface and carefully designed layout ensure that users can easily navigate, providing an enjoyable and hassle-free experience.
 
-### Demo
-
-Check it out live: [Movie and TV Show App](https://keen-chaja-414c1b.netlify.app)
-
-![Screen projektu](images/preview2.png)
-
-### CSS Spinner
-
-The app features an appealing CSS spinner for loading and data retrieval. The spinner CSS was adapted from the code provided by [tbrownvisuals on CodePen](https://codepen.io/tbrownvisuals/pen/edGYvx), adding a delightful touch to the user experience.
-
-### Swiper Library
-
-To enhance the visual appeal and interactivity, the app leverages the [Swiper library](https://swiperjs.com), allowing users to smoothly slide through trending movies and TV shows.
-
-### Credits
-
-Project was created as part of JavaScript course by Brad Traversy. His expertise and guidance played a pivotal role in the development of this exceptional application.
+### External Resources
+- **CSS Spinner:** The app features an appealing CSS spinner for loading and data retrieval. The spinner CSS was adapted from the code provided by [tbrownvisuals on CodePen](https://codepen.io/tbrownvisuals/pen/edGYvx), adding a delightful touch to the user experience.
+- **Swiper Library:** To enhance the visual appeal and interactivity, the app leverages the [Swiper library](https://swiperjs.com), allowing users to smoothly slide through trending movies and TV shows.
